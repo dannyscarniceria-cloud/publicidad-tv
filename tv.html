@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Publicidad</title>
+
+<style>
+body{
+margin:0;
+background:black;
+}
+
+video{
+width:100vw;
+height:100vh;
+object-fit:cover;
+}
+</style>
+
+</head>
+
+<body>
+
+<video id="player" autoplay muted></video>
+
+<script>
+
+let videos=[]
+let index=0
+
+async function cargar(){
+
+let r = await fetch("videos.json")
+
+videos = await r.json()
+
+play()
+
+}
+
+function play(){
+
+let player = document.getElementById("player")
+
+player.src = videos[index]
+
+player.play()
+
+player.onended=()=>{
+
+index++
+
+if(index>=videos.length){
+index=0
+}
+
+play()
+
+}
+
+}
+
+cargar()
+
+</script>
+
+</body>
+</html>
